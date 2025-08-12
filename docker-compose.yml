@@ -1,0 +1,33 @@
+services:
+  postgres_dwh:
+    image: postgres:15
+    container_name: postgres_dwh
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: warehouse
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - dwh_network
+
+  dbt:
+    image: ghcr.io/dbt-labs/dbt-postgres:1.9.latest
+    container_name: dbt_cli
+    volumes:
+      - .:/usr/app
+    working_dir: /usr/app
+    depends_on:
+      - postgres_dwh
+    networks:
+      - dwh_network
+    command: init dbt_workshop
+
+volumes:
+  postgres_data:
+
+networks:
+  dwh_network:
+    driver: bridge
