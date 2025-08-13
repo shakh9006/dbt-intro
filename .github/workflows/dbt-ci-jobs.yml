@@ -3,10 +3,10 @@ name: Run Pre-commit Hooks with Postgres
 on:
   pull_request:
     branches:
-      - main
+      - master
   push:
     branches:
-      - main
+      - master
 
 jobs:
   pre-commit:
@@ -60,7 +60,7 @@ jobs:
       - name: Run pre-commit on all changed files
         run: |
           . venv/bin/activate
-          files=$(git diff --name-only origin/main)
+          files=$(git diff --name-only origin/master)
           if [ -n "$files" ]; then
             pre-commit run --files $files
           else
