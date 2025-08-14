@@ -1,0 +1,19 @@
+dbt_workshop:
+  outputs:
+    dev:
+      type: postgres
+      host: "localhost"
+      user: "postgres"
+      password: "postgres"
+      port: 5432
+      dbname: "warehouse"
+      schema: dev
+    ci:
+      type: postgres
+      host: '{{ env_var("DBT_HOST") }}'
+      user: '{{ env_var("DBT_USER") }}'
+      password: '{{ env_var("DBT_PASSWORD") }}'
+      port: 5432
+      dbname: '{{ env_var("DBT_DATABASE") }}'
+      schema: ci
+  target: dev
