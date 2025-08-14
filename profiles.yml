@@ -10,10 +10,10 @@ dbt_workshop:
       schema: dev
     ci:
       type: postgres
-      host: '{{ env_var("DBT_HOST") }}'
-      user: '{{ env_var("DBT_USER") }}'
-      password: '{{ env_var("DBT_PASSWORD") }}'
+      host: postgres_dwh
+      user: postgres
+      password: postgres
       port: 5432
-      dbname: '{{ env_var("DBT_DATABASE") }}'
+      dbname: warehouse
       schema: ci
   target: dev
